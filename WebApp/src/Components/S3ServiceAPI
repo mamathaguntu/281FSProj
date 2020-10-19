@@ -1,0 +1,18 @@
+import axios from 'axios';
+
+const s3Bucket_URL = "http://localhost:8080";
+class S3ServiceAPI  {
+    uploadFile(fileName)
+    {
+        return axios.post(s3Bucket_URL + "/uploadFile/{fileName}", fileName);
+    }
+
+    deleteFile(fileName)
+    {
+        return axios.delete(s3Bucket_URL + "/deleteFile/" + fileName).then(response => response.data);   
+    }
+
+    downloadFile(fileName) {
+        return axios.get(s3Bucket_URL + "/downloadFile" + fileName).then(response => response.data);
+    }
+}
