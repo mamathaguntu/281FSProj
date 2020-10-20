@@ -34,7 +34,7 @@ public class UserDataController {
 		 return dataa1;	 
 	 }
 	
-	@GetMapping("/getUsers/")
+	@GetMapping("/getAllUsers/")
 	 public List<UserData> getAllUsers() {
 		 List<UserData> dataa1 = dao.findAll();
 		 return dataa1;	 
