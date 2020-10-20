@@ -1,9 +1,11 @@
 package com.sjsu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +22,7 @@ public class UserDataController {
 	 
 	 @PostMapping("/post/userData" )
 	 public UserData addUser(@RequestBody UserData userData) {
-			UserData data1 = dao.save(userData);
+		UserData data1 = dao.save(userData);
 		return data1;		 
 	 }
 	 
@@ -29,23 +31,15 @@ public class UserDataController {
 		 UserData dataa1 = dao.getOne(id);
 		 return dataa1;	 
 	 }
+	 	 
+	 @DeleteMapping("/deleteUser/{userID}")
+	 public void removeUserById(@PathVariable("userID") int userID){
+		 dao.deleteById(userID);
+	 }
 	 
+	 @PutMapping("/editUser/userData")
+	 public void updateUser(@RequestBody UserData userData){ 
+		 dao.save(userData);
+	 }
 	 
-		/*
-		 * @RequestMapping(value = "/{userID}", method = RequestMethod.GET) public
-		 * UserData getUserById(@PathVariable("userID") int userID){ return
-		 * user.getUserById(userID); }
-		 * 
-		 * @RequestMapping(value = "/{userID}", method = RequestMethod.DELETE) public
-		 * void removeUserById(@PathVariable("userID") int userID){
-		 * user.removeUserById(userID); }
-		 * 
-		 * @RequestMapping(method = RequestMethod.PUT, consumes =
-		 * MediaType.APPLICATION_JSON_VALUE) public void updateUser(@RequestBody
-		 * UserData userData){ user.updateUser(userData); }
-		 * 
-		 * @RequestMapping(method = RequestMethod.POST, consumes =
-		 * MediaType.APPLICATION_JSON_VALUE) public void insertUser(@RequestBody
-		 * UserData userData){ user.insertUser(userData); }
-		 */
 }
