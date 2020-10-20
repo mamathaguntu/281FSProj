@@ -31,6 +31,12 @@ public class UserDataController {
 		 UserData dataa1 = dao.getOne(id);
 		 return dataa1;	 
 	 }
+	
+	@GetMapping("/getUsers/")
+	 public List<UserData> getUser() {
+		 List<UserData> dataa1 = dao.findAll();
+		 return dataa1;	 
+	 }
 	 	 
 	 @DeleteMapping("/deleteUser/{userID}")
 	 public void removeUserById(@PathVariable("userID") int userID){
