@@ -10,39 +10,27 @@ import javax.persistence.Table;
 public class UserData {
 	
 	@Id
-	@GeneratedValue
-	private int userID;
-	private String userName;
+	private String email;
 	private String firstName;
 	private String lastName;
-	private String password;
+	private boolean userSignedIn;
 	
 	public UserData() {
 	}
 	
-	public UserData(int userID, String userName, String firstName, String lastName, String password) {
+	public UserData(String email, String firstName, String lastName) {
 		super();
-		this.userID = userID;
-		this.userName = userName;
+		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.password = password;
 	}
 
-	public int getUserID() {
-		return userID;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getFirstName() {
@@ -61,15 +49,13 @@ public class UserData {
 		this.lastName = lastName;
 	}
 
-	public String getPassword() {
-		return password;
+	public boolean getUserStatus() {
+		return userSignedIn;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUserStatus(boolean userSignedIn) {
+		this.userSignedIn = userSignedIn;
 	}
-	
-	
 	
 
 }
