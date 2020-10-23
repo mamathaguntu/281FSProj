@@ -10,8 +10,7 @@ class NavigationBar extends Component {
            <Navbar bg = 'dark' variant = 'dark'>
                 <Link to = {""} className="navbar-brand">File Storage</Link>
                 <Nav className="mr-auto">
-                {/* <Link to={"login"} className="nav-link">Login Page</Link> */}
-                {/* <Link to={"register"} className="nav-link">Registration</Link> */}
+                <Link to={"login"} className="nav-link">Login</Link>
                 </Nav>
             </Navbar>
         )
