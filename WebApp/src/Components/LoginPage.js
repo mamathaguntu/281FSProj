@@ -1,107 +1,83 @@
-import React, { Component } from 'react'
-import {Card, Form, Button, Col, FormGroup} from 'react-bootstrap'
-import {Link, ReactDOM} from 'react-router-dom'
+import React, {useState, useContext} from 'react'
+import {Card, Container,  Form, Button, Col, FormGroup} from 'react-bootstrap'
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js"
+import {Link, ReactDOM, useHistory} from 'react-router-dom'
 import RegistrationPage from './RegistrationPage'
 import {GoogleLogin} from 'react-google-login';
 import AdminSrcPage from './AdminSrcPage';
+import { borders } from '@material-ui/system';
+import {UserPool} from './userPool'
+import {Account, AccountContext } from './Accounts'
+import DatabaseAPI from './DatabaseAPI'
 
-
-export class LoginPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-            agreeTerms: false,
-            error: false,
-          };
-          this.onSubmit = this.onSubmit.bind(this);
-          
-          this.handleUnameChange = this.handleUnameChange.bind(this);
-          this.handlePwdChange = this.handlePwdChange.bind(this);
-    }
+function LoginPage(props) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const authenticate = useContext(AccountContext);
+    const history = props;
+    
+    const onSubmit = event => {
+        event.preventDefault();
+    
+        authenticate(email, password)
+          .then(data => {
+            console.log('Logged in!', data);
+            DatabaseAPI.updateUserStatusIn(email);
+            history.push('/displayMyFiles')
+          })
+          .catch(err => {
+            console.error('Failed to login!', err);
+          })
+      };
     
 
-    responseGoogle = (response) => {
-        console.log(response);
-        console.log(response.profileObj)
-    }
-    
-    onSubmit(e) {
-        
-        this.setState({ error: false });
-        const {history} = this.props;
-
-        if (!(this.state.username === 'admin@gmail.com' && this.state.password === 'admin')) {
-            alert ('Incorrect password, Please try again!')
-            return this.setState({ error: true });
-          }
-        else if (this.state.username === 'admin@gmail.com' && this.state.password === 'admin'){
-            history.push('/adminPage');
-        }
-        
-        e.preventDefault();
-      }
-    
-      handleUnameChange =(e) => {
-        this.setState({ 
-            username: e.target.value
-         });
-      }
-    //   handleChange = (e) => {
-    //       this.setState = {
-    //           agreeTerms: e.target.value
-    //       }
-    //   }
-
-      
-      handlePwdChange = (e) => {
-        this.setState({ 
-            password: e.target.value
-         });
-      }
-
-    render() {
-        return (
-            <Card>
+    return (
+        <>
+            {/* <Container align = "center">
+            <Form onSubmit ={onSubmit}>
+            <FormGroup>
+            <GoogleLogin
+                clientId="270820257360-nsqo8lpi97bnnpd5bq3ea3bnjdbph74v.apps.googleusercontent.com"
+                buttonText="Google Login"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'} />
+                </FormGroup>
+            </Form> 
+            </Container> */}
+            {/* <br/>
+            <div align ="center" className="text-white">------------- OR -------------</div>
+            <br/> */}
+            <Card className = 'bg-dark text-white'>
             <Form>
-                <GoogleLogin
-                    clientId="270820257360-nsqo8lpi97bnnpd5bq3ea3bnjdbph74v.apps.googleusercontent.com"
-                    buttonText="Google Login"
-                    onSuccess={this.responseGoogle}
-                    onFailure={this.responseGoogle}
-                    cookiePolicy={'single_host_origin'}
-                /></Form>
-                <Form>
-                <Card.Body>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={this.handleUnameChange}/>
-                        <Form.Text className="text-muted">
-                            Your email will not be shared with anyone else!!
-                        </Form.Text>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label name='Password'>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={this.handlePwdChange}/>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="I agree to the terms and conditions*"/>
-                    </Form.Group>
-                    <Button variant="primary" type="submit" onClick={this.onSubmit} >
-                        Login
-                    </Button>
-                    <FormGroup>
-                        <Form.Label column lg={2}>
-                        New user? 
-                        <Link to={"register"} className="nav-link">Sign up!</Link>
-                        </Form.Label>
-                    </FormGroup>
-                    </Card.Body>
-                    </Form>
+            <Card.Body>
+            <Form.Row>
+            <Form.Group as={Col} md={7} controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" value={email} onChange= {event=>setEmail(event.target.value)}/>
+                <Form.Text className="text-muted">
+                    Your email will not be shared with anyone else!!
+                </Form.Text>
+            </Form.Group>
+            </Form.Row>
+            <Form.Row>
+            <Form.Group as={Col} md={7} controlId="formBasicPassword">
+                <Form.Label name='Password'>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" value={password} onChange= {event=>setPassword(event.target.value)}/>
+            </Form.Group>
+            </Form.Row>
+            <Button variant="primary" type="submit"> Login</Button>
+            <FormGroup>
+                <Form.Label column lg={2}>
+                <div className="text-white">New User ?</div>
+                <Link to={"register"} className="nav-link">Sign up!</Link>
+                </Form.Label>
+            </FormGroup>
+            </Card.Body>
+            </Form>
             </Card>
-        )
-    }
+            </>
+    
+    )
 }
-
 export default LoginPage
