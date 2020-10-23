@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const s3Bucket_URL = "http://localhost:8080";
+const s3Bucket_URL = "http://www.mgproj.com";
 class S3ServiceAPI  {
     uploadFile(fileName)
     {
@@ -24,3 +24,4 @@ class S3ServiceAPI  {
         return axios.get(s3Bucket_URL + "/listFileDetails").then (response => response.data);
     }
 }
+export default S3ServiceAPI
