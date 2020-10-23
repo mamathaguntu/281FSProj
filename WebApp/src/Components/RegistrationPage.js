@@ -1,81 +1,68 @@
 import React, {useState} from 'react'
 import { Card } from 'material-ui';
-import {Form, Col, Button, InputGroup} from 'react-bootstrap'
-
-
+import {Form, Col, Button, InputGroup} from 'react-bootstrap';
+import UserPool from './userPool'
+import DatabaseAPI from './DatabaseAPI'
 
 function RegistrationPage() {
-    const [validated, setValidated] = useState(false);
-
-    const handleSubmit = (event) => {
-      const form = event.currentTarget;
-      if (form.checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setlastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [agree, setAgree] = useState('');
   
-      setValidated(true);
-    };
+    const onSubmit = event => {
+    event.preventDefault();
+    
 
-    const onSubmit = (e) => {
-      
-    }
+    UserPool.signUp(email, password, [], null, (err, data) => {
+      if (err) console.error(err);
+      console.log(data);
+      if (!err){
+        const userData = {firstName, lastName, email}
+        DatabaseAPI.newUser(userData);
+        alert('Registered successfully ! Proceed with Login')
+      }
+    });
+  };
 
     return (
-         
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form onSubmit={onSubmit}>
             <Form.Row>
-              <Form.Group as={Col} md="4" controlId="validationCustom01">
+              <Form.Group as={Col} md="4"  >
                 <Form.Label className="text-white" name ="First Name">First name</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="First name"
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                <Form.Control required type="text" placeholder="First name" 
+                value={firstName} onChange= {event=>setFirstName(event.target.value)}/>
               </Form.Group>
-              <Form.Group as={Col} md="4" controlId="validationCustom02">
+            </Form.Row>
+            <Form.Row>
+              <Form.Group as={Col} md="4">
                 <Form.Label name="Last Name" className="text-white">Last name</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Last name"
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                <Form.Control required type="text" placeholder="Last name"
+                value={lastName} onChange= {event=>setlastName(event.target.value)}/>
               </Form.Group>
-              <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                <Form.Label className="text-white" name= "User Name">Username</Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                  </InputGroup.Prepend>
-                  <Form.Control
-                    type="text"
-                    placeholder="Username"
-                    aria-describedby="inputGroupPrepend"
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please choose a username.
-                  </Form.Control.Feedback>
-                </InputGroup>
+              </Form.Row>
+              <Form.Row>
+              <Form.Group as={Col} md="4">
+                <Form.Label className="text-white" name= "Email">Email</Form.Label>
+                <Form.Control required type="text" placeholder="Email"
+                value={email} onChange= {event=>setEmail(event.target.value)}/>
               </Form.Group>
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} md="3" controlId="formBasicPassword">
                 <Form.Label name='Password' className="text-white">Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password"/>
-              </Form.Group>
-              <Form.Group as={Col} md="3" controlId="formBasicPassword">
-                <Form.Label name='Re-enter Password' className="text-white">Re-enter Password</Form.Label>
-                  <Form.Control type="password" placeholder="Re-enter Password"/>
+                <Form.Control type="password" placeholder="Password" value={password} onChange= {event=>setPassword(event.target.value)}/>
               </Form.Group>
             </Form.Row>
-            <Form.Group controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="I agree to the terms and conditions*" className="text-white"/>I agree to the terms and conditions
-            </Form.Group>
-            <Button type="submit" onClick={this.onSubmit}>Submit</Button>
-             </Form>
+              <Form.Group controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="I agree to the terms and conditions*" className="text-white" 
+                value={agree} onChange={event=>setAgree(event.target.value)}/>
+                I agree to the terms and conditions
+              
+              </Form.Group>
+            <Button type="submit">Submit</Button>
+          </Form>
             
           
     )
