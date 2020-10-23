@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.sjsu.Entity.FileData;
 import com.sjsu.Entity.UserData;
 import com.sjsu.repo.UserDataDao;
 
