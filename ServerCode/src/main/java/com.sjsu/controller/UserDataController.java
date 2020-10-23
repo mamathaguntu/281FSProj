@@ -1,5 +1,7 @@
 package com.sjsu.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,13 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.sjsu.Entity.FileData;
 import com.sjsu.Entity.UserData;
 import com.sjsu.repo.UserDataDao;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/UserData")
+@CrossOrigin(origins="http://localhost:3000")
 public class UserDataController {
 	
 	 @Autowired
@@ -29,20 +33,20 @@ public class UserDataController {
 	 }
 	 
 	 @GetMapping("/getUsers/{id}")
-	 public UserData getUser(@PathVariable int id) {
-		 UserData dataa1 = dao.getOne(id);
+	 public UserData getUser(@PathVariable String email) {
+		 UserData dataa1 = dao.getOne(email );
 		 return dataa1;	 
 	 }
-	
-	@GetMapping("/getAllUsers")
+	 
+	 @GetMapping("/getAllUsers")
 	 public List<UserData> getAllUsers() {
 		 List<UserData> dataa1 = dao.findAll();
 		 return dataa1;	 
 	 }
 	 	 
 	 @DeleteMapping("/deleteUser/{userID}")
-	 public void removeUserById(@PathVariable("userID") int userID){
-		 dao.deleteById(userID);
+	 public void removeUserById(@PathVariable("email") String email){
+		 dao.deleteById(email);
 	 }
 	 
 	 @PutMapping("/editUser/userData")
@@ -50,4 +54,9 @@ public class UserDataController {
 		 dao.save(userData);
 	 }
 	 
+	 @GetMapping("/getUserStatus/{id}")
+	 public boolean getUserStatus(@PathVariable String email) {
+		 boolean userStatus = dao.getOne(email).getUserStatus();
+		 return userStatus;	 
+	 }
 }
