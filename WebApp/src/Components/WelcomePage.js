@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Button, Jumbotron, Nav} from 'react-bootstrap'
-import { Route, Router, Switch,Link} from 'react-router-dom';
+import { Route, Router, Switch, Link} from 'react-router-dom';
 import LoginPage from './LoginPage'
 
 export class WelcomePage extends Component {
