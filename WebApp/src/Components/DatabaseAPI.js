@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const db_url = "http://localhost:8080/";
+const db_url = "http://Testfilestorage-env.eba-xjke352x.us-east-1.elasticbeanstalk.com/";
 class DatabaseAPI  {
 
     //User data operations
