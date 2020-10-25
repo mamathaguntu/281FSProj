@@ -3,6 +3,8 @@ import { Card } from 'material-ui';
 import {Form, Col, Button, InputGroup} from 'react-bootstrap';
 import UserPool from './userPool'
 import DatabaseAPI from './DatabaseAPI'
+import Alert from '@material-ui/lab/Alert';
+import IconButton from '@material-ui/core/IconButton';
 
 function RegistrationPage() {
     const [firstName, setFirstName] = useState('');
@@ -10,14 +12,13 @@ function RegistrationPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [agree, setAgree] = useState('');
-  
     const onSubmit = event => {
     event.preventDefault();
     
 
     UserPool.signUp(email, password, [], null, (err, data) => {
       if (err) console.error(err);
-      console.log(data);
+        alert(err.message)
       if (!err){
         const userData = {firstName, lastName, email}
         DatabaseAPI.newUser(userData);
@@ -27,6 +28,9 @@ function RegistrationPage() {
   };
 
     return (
+     
+      <>
+     
           <Form onSubmit={onSubmit}>
             <Form.Row>
               <Form.Group as={Col} md="4"  >
@@ -63,7 +67,7 @@ function RegistrationPage() {
               </Form.Group>
             <Button type="submit">Submit</Button>
           </Form>
-            
+          </>  
           
     )
 }
