@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const s3Bucket_URL = "http://localhost:8080";
+const s3Bucket_URL = "http://Testfilestorage-env.eba-xjke352x.us-east-1.elasticbeanstalk.com";
 class S3ServiceAPI  {
     uploadFile(file)
     {
