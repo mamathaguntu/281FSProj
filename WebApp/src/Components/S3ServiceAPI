@@ -1,10 +1,15 @@
 import axios from 'axios';
 
-const s3Bucket_URL = "http://www.mgproj.com";
+const s3Bucket_URL = "http://localhost:8080";
 class S3ServiceAPI  {
-    uploadFile(fileName)
+    uploadFile(file)
     {
-        return axios.post(s3Bucket_URL + "/uploadFile", fileName);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+        return axios.post(s3Bucket_URL + "/uploadFile", file, config).then(response => response.data);
     }
 
     deleteFile(fileName)
@@ -23,5 +28,13 @@ class S3ServiceAPI  {
     listFileDetails(){
         return axios.get(s3Bucket_URL + "/listFileDetails").then (response => response.data);
     }
+    listMyFileDetails(email){
+        return axios.get(s3Bucket_URL + "/listMyFileDetails/"+ email).then (response => response.data);
+    }
+    getFileByFileName(fileName)
+    {
+        return axios.get(s3Bucket_URL + "//GetFileByFileName/" + fileName).then (response => response.data);
+    }
+  
 }
-export default S3ServiceAPI
+export default new S3ServiceAPI();
