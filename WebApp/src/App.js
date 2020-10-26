@@ -15,6 +15,8 @@ import amplify from 'aws-amplify'
 import config from './Components/config.json'
 import userPage from './Components/userPage';
 
+import ConfirmUser from './Components/ConfirmUser';
+
 amplify.configure({
   Auth: {
     mandatorySignId: true,
@@ -41,10 +43,14 @@ function App() {
           <Route path="/register" exact component={RegistrationPage} />
           <Route path="/adminPage" exact component={AdminSrcPage} />
           <Route path="/displayAllFiles" exact component={DisplayAllFiles} />
+         
+          
           <Route path="/displayMyFiles" exact component={DisplayMyFiles} />
           <Route path="/users" exact component={DisplayUserDetails} />
           <Route path="/userPage" exact component={userPage}/>
+          <Route path="/confirmUser/:email" exact component={ConfirmUser}/>
         </Switch>
+       
         </Col>
       </Row>
     </Container>
