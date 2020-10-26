@@ -19,7 +19,7 @@ import com.sjsu.repo.UserDataDao;
 
 @RestController
 @RequestMapping("/UserData")
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins="*")
 public class UserDataController {
 	
 	 @Autowired
@@ -31,7 +31,7 @@ public class UserDataController {
 		return data1;		 
 	 }
 	 
-	 @GetMapping("/getUsers/{id}")
+	 @GetMapping("/getUsers/{email}")
 	 public UserData getUser(@PathVariable String email) {
 		 UserData dataa1 = dao.getOne(email );
 		 return dataa1;	 
@@ -57,5 +57,19 @@ public class UserDataController {
 	 public boolean getUserStatus(@PathVariable String email) {
 		 boolean userStatus = dao.getOne(email).getUserStatus();
 		 return userStatus;	 
+	 }
+	 
+	 @PutMapping("/updateUserStatusIn/")
+	 public void updateUserStatusIn(@RequestBody String email){ 
+		 UserData ud =  dao.getOne(email);
+		 ud.setUserStatus(true);
+		 dao.save(ud);
+	 }
+	 
+	 @PutMapping("/updateUserStatusOut/")
+	 public void updateUserStatusOut(@RequestBody String email){ 
+		 UserData ud =  dao.getOne(email);
+		 ud.setUserStatus(false);
+		 dao.save(ud);
 	 }
 }
