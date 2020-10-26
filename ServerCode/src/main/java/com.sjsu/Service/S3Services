@@ -1,6 +1,8 @@
 package com.sjsu.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -8,9 +10,11 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public interface S3Services {
 	public void downloadFile(String fileName);
-	public void uploadFile(String fileName, String uploadFilePath);
+	public void uploadFile(String fileName, MultipartFile file) throws IOException;
 	public List<String> listFiles();
 	public void deleteFile(String fileName);
 	public List<S3ObjectSummary> listFileDetails();
+	public boolean getFileByFileName(String fileName);
+	public List<S3ObjectSummary> listMyFileDetails(String email);
 }
 	
