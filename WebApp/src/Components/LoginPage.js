@@ -10,7 +10,6 @@ import {UserPool} from './userPool'
 import {Account, AccountContext } from './Accounts'
 import DatabaseAPI from './DatabaseAPI'
 import {Auth} from 'aws-amplify'
-// import {AuthContext} from '../Auth'
 
 function LoginPage(props) {
     const [email, setEmail] = useState('');
@@ -21,14 +20,16 @@ function LoginPage(props) {
         e.preventDefault();
         try {
             const user = await Auth.signIn(email, password);
-            // setIsAuthenticated(true)
             history.push('/displayMyFiles')
         }
         catch(err){
             console.log(err)
-            console.log("Cannot sign In")
+            alert(err.message)
         }
-       
+      
+    }
+    
+
     return (
         <>
             {/* <Container align = "center">
@@ -43,7 +44,9 @@ function LoginPage(props) {
                 </FormGroup>
             </Form> 
             </Container> */}
-           
+            {/* <br/>
+            <div align ="center" className="text-white">------------- OR -------------</div>
+            <br/> */}
             <Card className = 'bg-dark text-white'>
             <Form>
             <Card.Body>
