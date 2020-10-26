@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/FileData")
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins="*")
 public class FileDataController {
 
 	 @Autowired
@@ -29,9 +29,9 @@ public class FileDataController {
 		return data1;		 
 	 }
 	 
-	 @GetMapping("/getFiles/{id}")
-	 public FileData getFile(@PathVariable int id) {
-		 FileData dataa1 = fda.getOne(id);
+	 @GetMapping("/getFileByUserID/{userid}")
+	 public FileData getFileByUserId(@PathVariable int userid) {
+		 FileData dataa1 = fda.getOne(userid);
 		 return dataa1;	 
 	 }
 	 
@@ -49,6 +49,5 @@ public class FileDataController {
 	 @PutMapping("/editFile/fileData")
 	 public void updateFile(@RequestBody FileData fileData){ 
 		 fda.save(fileData);
-	 }
-	 
+	 }	 
 }
