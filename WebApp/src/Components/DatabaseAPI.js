@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const db_url = "http://Testfilestorage-env.eba-xjke352x.us-east-1.elasticbeanstalk.com/";
+const db_url = "https://www.fs.mamatha-guntu.com/";
 class DatabaseAPI  {
 
-    //User data operations
+    
     getUserDetails(){
         return axios.get(db_url + "UserData/getAllUsers").then(response => response.data);
     }
