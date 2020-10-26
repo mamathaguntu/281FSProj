@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const s3Bucket_URL = "http://Testfilestorage-env.eba-xjke352x.us-east-1.elasticbeanstalk.com";
+const s3Bucket_URL = "https://www.fs.mamatha-guntu.com/";
 class S3ServiceAPI  {
     uploadFile(file)
     {
@@ -9,31 +9,31 @@ class S3ServiceAPI  {
                 'content-type': 'multipart/form-data'
             }
         }
-        return axios.post(s3Bucket_URL + "/uploadFile", file, config).then(response => response.data);
+        return axios.post(s3Bucket_URL + "uploadFile", file, config).then(response => response.data);
     }
 
     deleteFile(fileName)
     {
-        return axios.delete(s3Bucket_URL + "/deleteFile/" + fileName).then(response => response.data);   
+        return axios.delete(s3Bucket_URL + "deleteFile/" + fileName).then(response => response.data);   
     }
 
     downloadFile(fileName) {
-        return axios.get(s3Bucket_URL + "/downloadFile/" + fileName).then(response => response.data);
+        return axios.get(s3Bucket_URL + "downloadFile/" + fileName).then(response => response.data);
     }
 
     listAllFiles(){
-        return axios.get(s3Bucket_URL + "/listFiles").then (response => response.data);
+        return axios.get(s3Bucket_URL + "listFiles").then (response => response.data);
     }
 
     listFileDetails(){
-        return axios.get(s3Bucket_URL + "/listFileDetails").then (response => response.data);
+        return axios.get(s3Bucket_URL + "listFileDetails").then (response => response.data);
     }
     listMyFileDetails(email){
-        return axios.get(s3Bucket_URL + "/listMyFileDetails/"+ email).then (response => response.data);
+        return axios.get(s3Bucket_URL + "listMyFileDetails/"+ email).then (response => response.data);
     }
     getFileByFileName(fileName)
     {
-        return axios.get(s3Bucket_URL + "//GetFileByFileName/" + fileName).then (response => response.data);
+        return axios.get(s3Bucket_URL + "GetFileByFileName/" + fileName).then (response => response.data);
     }
   
 }
