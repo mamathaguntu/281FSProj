@@ -71,7 +71,6 @@ export class DisplayMyFiles extends Component {
         const response2 = await DatabaseAPI.getUser(currentUserMail);
         const usernameTmp = `${response2.firstName} ${response2.lastName}`;
         this.setState({username: usernameTmp})
-      
         const json = await response1;
         this.setState({ myFiles: json });
       }
@@ -192,6 +191,5 @@ export class DisplayMyFiles extends Component {
         )
     }
 }
-// DisplayMyFiles.contextType = AuthContext
 export default DisplayMyFiles
 
