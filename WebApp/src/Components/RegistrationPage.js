@@ -5,6 +5,8 @@ import UserPool from './userPool'
 import DatabaseAPI from './DatabaseAPI'
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from "@material-ui/icons/Close";
+import {useHistory} from 'react-router-dom'
 
 function RegistrationPage() {
     const [firstName, setFirstName] = useState('');
@@ -12,17 +14,19 @@ function RegistrationPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [agree, setAgree] = useState('');
+    
+    let history = useHistory();
+    
     const onSubmit = event => {
     event.preventDefault();
-    
-
     UserPool.signUp(email, password, [], null, (err, data) => {
       if (err) console.error(err);
-        alert(err.message)
+       
       if (!err){
-        const userData = {firstName, lastName, email}
-        DatabaseAPI.newUser(userData);
-        alert('Registered successfully ! Proceed with Login')
+	        const userData = {firstName, lastName, email}
+	        DatabaseAPI.newUser(userData);
+	        alert('Registered successfully ! Proceed with Login')
+	        history.push(`/confirmUser/${email}`)
       }
     });
   };
