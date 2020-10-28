@@ -22,7 +22,8 @@ https://www.fs.mamatha-guntu.com
 
 Demo screenshots:
 Welcome page:
-https://github.com/mamathaguntu/281FSProj/issues/1#issue-731641201
+![image](https://user-images.githubusercontent.com/2658837/97472527-291a7f80-1907-11eb-88e1-527e61c21a51.png)
+
 Click ‘Get started!’ and you will be redirected to Login Page 
  
 Click ‘sign-up’ to register the account
