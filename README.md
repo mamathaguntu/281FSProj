@@ -1,6 +1,6 @@
 # 281FSProj
 
-Please refer to Readme.docx for screenshots
+
 FILE STORAGE 
 By
 MAMATHA GUNTU
